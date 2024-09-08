@@ -8,7 +8,6 @@ export default function CustomNavigationBar({
   options,
   back,
 }) {
-  // Tilat valikon näkyvyyden hallintaan
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -17,38 +16,46 @@ export default function CustomNavigationBar({
 
   return (
     <Appbar.Header>
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      {back ? (
+        <Appbar.BackAction onPress={navigation.goBack} />
+      ) : null}
       <Appbar.Content title={title} />
       {!back ? (
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={
-            <Appbar.Action
-              icon="dots-vertical"
-              onPress={openMenu}
+        <>
+          <Appbar.Action
+            icon="arrow-right"
+            onPress={() => navigation.navigate('SecondScreen')}
+          />
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchor={
+              <Appbar.Action
+                icon="dots-vertical"
+                onPress={openMenu}
+              />
+            }>
+            <Menu.Item
+              onPress={() => {
+                console.log('Option 1 was pressed');
+              }}
+              title="Option 1"
             />
-          }>
-          <Menu.Item
-            onPress={() => {
-              console.log('Option 1 was pressed');
-            }}
-            title="Option 1"
-          />
-          <Menu.Item
-            onPress={() => {
-              console.log('Option 2 was pressed');
-            }}
-            title="Option 2"
-          />
-          <Menu.Item
-            onPress={() => {
-              console.log('Option 3 was pressed');
-            }}
-            title="Option 3"
-            disabled
-          />
-        </Menu>
+            <Menu.Item
+              onPress={() => {
+                console.log('Option 2 was pressed');
+              }}
+              title="Option 2"
+            />
+            <Menu.Item
+              onPress={() => {
+                console.log('Option 3 was pressed');
+              }}
+              title="Option 3"
+              disabled
+            />
+          </Menu>
+        </>
       ) : null}
     </Appbar.Header>
   );
